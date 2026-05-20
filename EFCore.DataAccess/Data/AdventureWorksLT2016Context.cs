@@ -32,6 +32,8 @@ public partial class AdventureWorksLT2016Context : DbContext
 
     public virtual DbSet<ProductDescription> ProductDescriptions { get; set; }
 
+    public virtual DbSet<ProductDescription1> ProductDescription1s { get; set; }
+
     public virtual DbSet<ProductModel> ProductModels { get; set; }
 
     public virtual DbSet<ProductModelProductDescription> ProductModelProductDescriptions { get; set; }
@@ -401,6 +403,33 @@ public partial class AdventureWorksLT2016Context : DbContext
                 .HasDefaultValueSql("(newid())")
                 .HasComment("ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.")
                 .HasAnnotation("Relational:DefaultConstraintName", "DF_ProductDescription_rowguid")
+                .HasColumnName("rowguid");
+        });
+
+        modelBuilder.Entity<ProductDescription1>(entity =>
+        {
+            entity.HasKey(e => e.ProductDescription1Id).HasName("PK_ProductDescription1_ProductDescription1ID");
+
+            entity.ToTable("ProductDescription1", "SalesLT", tb => tb.HasComment("Product descriptions in several languages."));
+
+            entity.HasIndex(e => e.Rowguid, "AK_ProductDescription1_rowguid").IsUnique();
+
+            entity.Property(e => e.ProductDescription1Id)
+                .HasComment("Primary key for ProductDescription1 records.")
+                .HasColumnName("ProductDescription1ID");
+            entity.Property(e => e.Description)
+                .IsRequired()
+                .HasMaxLength(400)
+                .HasComment("Description of the product.");
+            entity.Property(e => e.ModifiedDate)
+                .HasDefaultValueSql("(getdate())")
+                .HasComment("Date and time the record was last updated.")
+                .HasAnnotation("Relational:DefaultConstraintName", "DF_ProductDescription1_ModifiedDate")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Rowguid)
+                .HasDefaultValueSql("(newid())")
+                .HasComment("ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.")
+                .HasAnnotation("Relational:DefaultConstraintName", "DF_ProductDescription1_rowguid")
                 .HasColumnName("rowguid");
         });
 

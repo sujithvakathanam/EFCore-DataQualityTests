@@ -109,6 +109,9 @@
     {
       "exclude": true,
       "name": "[SalesLT].[Product1]"
+    },
+    {
+      "name": "[SalesLT].[ProductDescription1]"
     }
   ],
   "type-mappings": {
