@@ -32,6 +32,17 @@ https://marketplace.visualstudio.com/items?itemName=ErikEJ.EFCorePowerTools
 For futher information on how to use EF Core power tools, please refer below link especially on how to 'Reverse Engineer a Database' <br>
 https://code-maze.com/efcore-database-first-development-with-ef-core-power-tools/
 
+## Sync entities after database schema changes
+
+When tables or columns change in SQL Server, regenerate the EF Core model from the repo root:
+
+```powershell
+dotnet tool restore
+.\scripts\sync-ef-models.ps1
+```
+
+Connection string: `EFCore-DataQuality/appsettings.json` (`DefaultConnection`), or set `ConnectionStrings__DefaultConnection` in the environment. Configuration: `EFCore.DataAccess/efcpt-config.json`.
+
 ## How to run the tests
 Amend the appsettings.json file to point to your local sql servername<br>
 Build the C# solution avaiable in EfCore-DataQuality with your favourite IDE <br>

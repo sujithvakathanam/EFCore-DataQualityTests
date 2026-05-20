@@ -60,6 +60,12 @@ bld/
 
 # Claude Code local settings (not project docs)
 .claude/
+
+# Local dotnet tool install (use dotnet tool restore + .config/dotnet-tools.json)
+.tools/
+
+# EF Core Power Tools CLI drops this after each run; script removes it
+**/efcpt-readme.md
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 

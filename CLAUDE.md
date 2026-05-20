@@ -10,7 +10,7 @@ A C# solution demonstrating how Entity Framework Core can be used to implement d
 
 Two projects in `EFCore-DataQuality/EFCore-DataQuality.sln`:
 
-- **EFCore.DataAccess** — Data access layer. Contains the EF Core `DbContext` (`Data/AdventureWorksLT2016Context.cs`), auto-generated POCO entities (`Entities/`), and Fluent API configuration classes (`Config/`). Entities were reverse-engineered from the database using EF Core Power Tools.
+- **EFCore.DataAccess** — Data access layer. Contains the EF Core `DbContext` (`Data/AdventureWorksLT2016Context.cs`), auto-generated POCO entities (`Entities/`), and Fluent API mapping in the generated context. Regenerated via `scripts/sync-ef-models.ps1` (EF Core Power Tools CLI). Hand-maintained: `Data/AdventureWorksLT2016Context.Custom.cs` (connection-string constructor for tests).
 - **EFCore-DataQuality** — NUnit test project. Contains data quality test fixtures (`SalesLT/`), utility/extension methods (`Utils/`), a `DBHelper.cs` for reading the connection string, and `appsettings.json`.
 
 ## Prerequisites
@@ -38,6 +38,31 @@ dotnet test --verbosity detailed --logger:"console;verbosity=detailed"
 ```
 
 All commands should be run from the `EFCore-DataQuality/` directory (where the `.sln` file lives).
+
+## Sync EF models when the database schema changes
+
+Do **not** hand-edit auto-generated files under `Entities/` or `Data/AdventureWorksLT2016Context.cs`. Regenerate from SQL Server instead.
+
+From the repository root:
+
+```powershell
+.\scripts\sync-ef-models.ps1
+```
+
+What the script does:
+
+1. Reads `DefaultConnection` from `EFCore-DataQuality/appsettings.json`, or `ConnectionStrings__DefaultConnection` if set in the environment.
+2. Runs `efcpt` using `EFCore.DataAccess/efcpt-config.json` (tables only; views/sprocs/functions excluded).
+3. Removes obsolete `Config/*.cs` and `efcpt-readme.md` from the old layout.
+4. Runs `dotnet build` and `dotnet test` in `EFCore-DataQuality/`.
+
+Options: `-SkipTests`, `-SkipBuild`, `-ConnectionName <name>`.
+
+**Agent workflow:** When the user reports schema changes or new tables, run `.\scripts\sync-ef-models.ps1`, review the git diff under `EFCore.DataAccess/`, then fix any failing tests. Preserve custom logic only in `*.Custom.cs` partials (e.g. `AdventureWorksLT2016Context.Custom.cs`).
+
+To include or exclude tables, edit `efcpt-config.json` (`exclude: true` per table, or `refresh-object-lists`).
+
+Prerequisites: .NET 9 SDK, SQL Server with AdventureWorksLT2016, `dotnet tool restore` (manifest in `.config/dotnet-tools.json`).
 
 ## Testing Patterns
 

@@ -1,0 +1,134 @@
+﻿{
+  "$schema": "https://raw.githubusercontent.com/ErikEJ/EFCorePowerTools/master/samples/efcpt-config.schema.json",
+  "code-generation": {
+    "enable-on-configuring": false,
+    "generate-mermaid-diagram": false,
+    "merge-dacpacs": false,
+    "refresh-object-lists": true,
+    "remove-defaultsql-from-bool-properties": false,
+    "soft-delete-obsolete-files": true,
+    "t4-template-path": null,
+    "type": "all",
+    "use-alternate-stored-procedure-resultset-discovery": false,
+    "use-stored-procedure-resultset-fallback": false,
+    "use-data-annotations": false,
+    "use-database-names": false,
+    "use-database-names-for-routines": true,
+    "use-decimal-data-annotation-for-sproc-results": true,
+    "use-inflector": true,
+    "use-internal-access-modifiers-for-sprocs-and-functions": false,
+    "use-legacy-inflector": false,
+    "use-many-to-many-entity": false,
+    "use-nullable-reference-types": false,
+    "use-prefix-navigation-naming": false,
+    "use-typed-tvp-parameters": true,
+    "use-t4": false,
+    "use-t4-split": false
+  },
+  "file-layout": {
+    "output-dbcontext-path": "Data",
+    "output-path": "Entities"
+  },
+  "functions": [
+    {
+      "exclusionWildcard": "*"
+    },
+    {
+      "name": "[dbo].[ufnGetAllCategories]"
+    },
+    {
+      "name": "[dbo].[ufnGetCustomerInformation]"
+    },
+    {
+      "name": "[dbo].[ufnGetSalesOrderStatusText]"
+    }
+  ],
+  "names": {
+    "dbcontext-name": "AdventureWorksLT2016Context",
+    "dbcontext-namespace": "EFCore.DataAccess.Data",
+    "model-namespace": "EFCore.DataAccess.Entities",
+    "root-namespace": null
+  },
+  "stored-procedures": [
+    {
+      "exclusionWildcard": "*"
+    },
+    {
+      "name": "[dbo].[CheckAllTablesForData_Enhanced]"
+    },
+    {
+      "name": "[dbo].[CheckTableRowCounts]"
+    },
+    {
+      "name": "[dbo].[uspLogError]"
+    },
+    {
+      "name": "[dbo].[uspPrintError]"
+    }
+  ],
+  "tables": [
+    {
+      "name": "[dbo].[BuildVersion]"
+    },
+    {
+      "name": "[dbo].[ErrorLog]"
+    },
+    {
+      "name": "[dbo].[Order]"
+    },
+    {
+      "name": "[SalesLT].[Address]"
+    },
+    {
+      "name": "[SalesLT].[Customer]"
+    },
+    {
+      "name": "[SalesLT].[CustomerAddress]"
+    },
+    {
+      "name": "[SalesLT].[Product]"
+    },
+    {
+      "name": "[SalesLT].[ProductCategory]"
+    },
+    {
+      "name": "[SalesLT].[ProductDescription]"
+    },
+    {
+      "name": "[SalesLT].[ProductModel]"
+    },
+    {
+      "name": "[SalesLT].[ProductModelProductDescription]"
+    },
+    {
+      "name": "[SalesLT].[SalesOrderDetail]"
+    },
+    {
+      "name": "[SalesLT].[SalesOrderHeader]"
+    },
+    {
+      "exclude": true,
+      "name": "[SalesLT].[Product1]"
+    }
+  ],
+  "type-mappings": {
+    "use-DateOnly-TimeOnly": false,
+    "use-HierarchyId": false,
+    "use-NodaTime": false,
+    "use-spatial": false
+  },
+  "views": [
+    {
+      "exclusionWildcard": "*"
+    },
+    {
+      "name": "[SalesLT].[vGetAllCategories]"
+    },
+    {
+      "name": "[SalesLT].[vProductAndDescription]"
+    },
+    {
+      "name": "[SalesLT].[vProductModelCatalogDescription]"
+    }
+  ]
+}
